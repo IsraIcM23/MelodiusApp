@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MelodiusModels
+{
+    public class Song
+    {
+        public int SongID { get; set; }
+        public string Title { get; set; }
+        public bool Genre { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public int Length { get; set; }
+        public ICollection<PlayListSong> playListSongs { get; set; }
+        public ICollection<AlbumSong> albumSongs { get; set; }
+        public ICollection<ArtistSong> ArtistSongs { get; set; }
+    }
+}

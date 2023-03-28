@@ -4,16 +4,19 @@ using BooksDataAccess.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BooksDataAccess.MigrationsMelodius
+namespace MelodiusDataAccess.MigrationsMelodius
 {
     [DbContext(typeof(MelodiusContext))]
-    partial class MelodiusContextModelSnapshot : ModelSnapshot
+    [Migration("20230328042258_segunda-migracion")]
+    partial class segundamigracion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

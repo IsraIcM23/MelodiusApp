@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MelodiusModels.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace MelodiusModels
 {
-    public class Song
+    public class Song : BaseEntity
     {
-        public int SongID { get; set; }
         public string Title { get; set; }
         public bool Genre { get; set; }
         public DateTime ReleaseDate { get; set; }

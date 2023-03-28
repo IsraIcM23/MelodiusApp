@@ -7,13 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BooksDataAccess\BooksDataAccess.csproj" />
     <ProjectReference Include="..\BooksModels\MelodiusModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interface\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

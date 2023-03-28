@@ -1,4 +1,8 @@
 using BooksDataAccess.Persistence;
+using MelodiusDataAccess.Repository.Implementation;
+using MelodiusDataAccess.Repository.Interfaces;
+using MelodiusServices.Interface;
+using MelodiusServices.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +20,8 @@ builder.Services.AddDbContext<MelodiusContext>(opt =>
 
 //builder.Services.AddScoped<IBookService, BookService>();
 //builder.Services.AddScoped<IBookRepository, BookRepository>();
-
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddCors(opt =>
 {

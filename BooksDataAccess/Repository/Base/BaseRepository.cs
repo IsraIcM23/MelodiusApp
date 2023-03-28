@@ -28,7 +28,10 @@ namespace MelodiusDataAccess.Repository.Base
 
         public Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = _dbSet.Find(id);
+            _dbSet.Remove(entity);
+            var deleted = _context.SaveChanges();
+            return Task.FromResult(deleted > 0);
         }
 
         public async Task<List<TEntity>> GetAllAsync()
@@ -43,7 +46,10 @@ namespace MelodiusDataAccess.Repository.Base
 
         public Task<bool> UpdateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Update(entity);
+            var updated = _context.SaveChanges();
+            return Task.FromResult(updated > 0);
+
         }
     }
 }

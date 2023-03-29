@@ -24,6 +24,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPlayListService, PlayListService>();
 builder.Services.AddScoped<IPlayListRepository, PlayListRepository>();
+builder.Services.AddScoped<IPlayListSongRepository, PlayListSongRepository>();
 
 builder.Services.AddCors(opt =>
 {

@@ -2,6 +2,7 @@
 using MelodiusDataAccess.Repository.Interfaces;
 using MelodiusDataTrasnfer.DTOS;
 using MelodiusDataTrasnfer.Mappers;
+using MelodiusDataTrasnfer.Responses;
 using MelodiusServices.Interface;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace MelodiusServices.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IPlayListRepository _layListRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IPlayListRepository playListRepository)
         {
             _userRepository = userRepository;
+            _layListRepository = playListRepository;
         }
 
         public async Task<bool> CreateUserAsync(UserDto user)
@@ -48,6 +51,30 @@ namespace MelodiusServices.Services
             User _user = UserMapper.MapUserDtoToUser(user);
             return  await _userRepository.UpdateAsync(_user);
         }
+
+        //public async Task<UserCompleteResponse> GetUserByIdWithPlayListsAsync(int id)
+        //{
+        //    var user = await _userRepository.GetByIdAsync(id);
+        //    var playLists = await _layListRepository.GetAllAsync();
+
+        //    foreach (var playList in playLists)
+        //    {
+        //        if (playList.User.Id == id)
+        //        {
+        //            user.playLists.Add(playList);
+        //        }
+        //    }
+
+        //    UserCompleteResponse response = new UserCompleteResponse();
+        //    response.Id = user.Id;
+        //    response.Name = user.Name;
+        //    response.Password = user.Password;
+        //    response.Email = user.Email;
+        //    response.playLists = user.playLists;
+
+        //    return response;
+        //}
+
 
     }
 }

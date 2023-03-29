@@ -22,6 +22,8 @@ builder.Services.AddDbContext<MelodiusContext>(opt =>
 //builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPlayListService, PlayListService>();
+builder.Services.AddScoped<IPlayListRepository, PlayListRepository>();
 
 builder.Services.AddCors(opt =>
 {

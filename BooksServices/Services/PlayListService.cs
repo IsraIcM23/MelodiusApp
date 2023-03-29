@@ -13,10 +13,12 @@ namespace MelodiusServices.Services
     public class PlayListService : IPlayListService
     {
         private readonly IPlayListRepository _playListRepository;
+        private readonly IUserRepository _userRepository;
 
-        public PlayListService(IPlayListRepository playListRepository)
+        public PlayListService(IPlayListRepository playListRepository, IUserRepository userRepository)
         {
             _playListRepository = playListRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<List<PlayListDto>> GetAllPlayListsAsync()
@@ -34,7 +36,9 @@ namespace MelodiusServices.Services
 
         public async Task<bool> CreatePlayListAsync(PlayListDto playListDto)
         {
-            var playList =  PlayListMapper.MapPlayListDtoToPlayList(playListDto);
+            var playList = PlayListMapper.MapPlayListDtoToPlayList(playListDto);
+            var user = await _userRepository.GetByIdAsync(playListDto.UserId);
+            playList.User = user;
             return await _playListRepository.CreateAsync(playList);
         }
 

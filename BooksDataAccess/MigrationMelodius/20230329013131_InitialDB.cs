@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BooksDataAccess.MigrationsMelodius
+namespace MelodiusDataAccess.MigrationMelodius
 {
     /// <inheritdoc />
     public partial class InitialDB : Migration
@@ -15,84 +15,84 @@ namespace BooksDataAccess.MigrationsMelodius
                 name: "Albums",
                 columns: table => new
                 {
-                    AlbumID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Albums", x => x.AlbumID);
+                    table.PrimaryKey("PK_Albums", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Artists",
                 columns: table => new
                 {
-                    ArtistID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Artists", x => x.ArtistID);
+                    table.PrimaryKey("PK_Artists", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Songs",
                 columns: table => new
                 {
-                    SongID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Genre = table.Column<bool>(type: "bit", nullable: false),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Length = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Songs", x => x.SongID);
+                    table.PrimaryKey("PK_Songs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "AlbumSongs",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AlbumID = table.Column<int>(type: "int", nullable: false),
                     SongID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AlbumSongs", x => x.id);
+                    table.PrimaryKey("PK_AlbumSongs", x => x.Id);
                     table.ForeignKey(
                         name: "FK_AlbumSongs_Albums_AlbumID",
                         column: x => x.AlbumID,
                         principalTable: "Albums",
-                        principalColumn: "AlbumID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AlbumSongs_Songs_SongID",
                         column: x => x.SongID,
                         principalTable: "Songs",
-                        principalColumn: "SongID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -100,25 +100,25 @@ namespace BooksDataAccess.MigrationsMelodius
                 name: "ArtistSongs",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ArtistID = table.Column<int>(type: "int", nullable: false),
                     SongID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArtistSongs", x => x.id);
+                    table.PrimaryKey("PK_ArtistSongs", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ArtistSongs_Artists_ArtistID",
                         column: x => x.ArtistID,
                         principalTable: "Artists",
-                        principalColumn: "ArtistID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ArtistSongs_Songs_SongID",
                         column: x => x.SongID,
                         principalTable: "Songs",
-                        principalColumn: "SongID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -126,23 +126,23 @@ namespace BooksDataAccess.MigrationsMelodius
                 name: "PlayLists",
                 columns: table => new
                 {
-                    PlaylistID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfCreation = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsPrivate = table.Column<bool>(type: "bit", nullable: false),
-                    TotalLength = table.Column<int>(type: "int", nullable: false),
+                    TotalLength = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlayLists", x => x.PlaylistID);
+                    table.PrimaryKey("PK_PlayLists", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PlayLists_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -162,13 +162,13 @@ namespace BooksDataAccess.MigrationsMelodius
                         name: "FK_PlayListSongs_PlayLists_PlaylistID",
                         column: x => x.PlaylistID,
                         principalTable: "PlayLists",
-                        principalColumn: "PlaylistID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PlayListSongs_Songs_SongID",
                         column: x => x.SongID,
                         principalTable: "Songs",
-                        principalColumn: "SongID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

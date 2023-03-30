@@ -10,12 +10,10 @@ using System.Threading.Tasks;
 
 namespace MelodiusDataAccess.Repository.Implementation
 {
-    public class ArtistRepository : BaseRepository<Artist>, IArtistRepository
+    public class ArtistSongRepository : BaseRepository<ArtistSong>, IArtistSongRepository
     {
-
-        public ArtistRepository(MelodiusContext context) : base(context)
+        public ArtistSongRepository(MelodiusContext context) : base(context)
         {
         }
-
     }
 }

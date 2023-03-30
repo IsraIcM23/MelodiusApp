@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MelodiusDataAccess.Repository.Base;
+using MelodiusModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MelodiusDataAccess.Repository.Interfaces
 {
-    internal interface IArtistSongRepository
+    public interface IArtistSongRepository : IBaseRepository<ArtistSong>
     {
     }
 }

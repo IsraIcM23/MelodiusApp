@@ -11,6 +11,7 @@ namespace MelodiusDataTrasnfer.Mappers
 {
     public static class SongMapper
     {
+
         public static SongDto MapSongToSongDto(Song song)
         {
             return new SongDto

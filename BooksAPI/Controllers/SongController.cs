@@ -1,4 +1,6 @@
 ﻿using MelodiusDataTrasnfer.DTOS;
+using MelodiusDataTrasnfer.Request;
+using MelodiusDataTrasnfer.Responses;
 using MelodiusServices.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,6 +64,21 @@ namespace MelodiusAPI.Controllers
         {
             var result = await _songService.DeleteSongAsync(id);
             return Ok(result);
+        }
+
+        [HttpPost("CompleteSong")]
+        public async Task<ActionResult<CompleteSongResponse>> AddNewSong(CompleteSongRequest song)
+        {
+            try
+            {
+                var response = await _songService.AddCompleteSong(song);
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                var badResponse = new { error = e.Message };
+                return BadRequest(badResponse);
+            }
         }
 
 

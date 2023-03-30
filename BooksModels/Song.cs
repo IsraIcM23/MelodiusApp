@@ -17,5 +17,6 @@ namespace MelodiusModels
         public ICollection<AlbumSong>? albumSongs { get; set; }
         public ICollection<ArtistSong>? ArtistSongs { get; set; }
 
+
     }
 }

@@ -11,8 +11,8 @@ namespace MelodiusServices.Interface
     {
         Task<List<PlayListDto>> GetAllPlayListsAsync();
         Task<PlayListDto> GetPlayListByIdAsync(int id);
-        Task<bool> CreatePlayListAsync(PlayListDto playList);
-        Task<bool> UpdatePlayListAsync(PlayListDto playList);
-        Task<bool> DeletePlayListAsync(int id);
+        Task<int> CreatePlayListAsync(PlayListDto playList);
+        Task<PlayListDto> UpdatePlayListAsync(PlayListDto playList);
+        Task<int> DeletePlayListAsync(int id);
     }
 }

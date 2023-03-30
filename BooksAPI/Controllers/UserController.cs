@@ -1,4 +1,5 @@
 ﻿using MelodiusDataTrasnfer.DTOS;
+using MelodiusDataTrasnfer.Responses;
 using MelodiusServices.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -64,6 +65,12 @@ namespace MelodiusAPI.Controllers
             return Ok(result);
         }
 
+        //[HttpGet("GetUserWithPlaylists/{id}")]
+        //public async Task<ActionResult<UserCompleteResponse>> GetByIdWithPlayList( int id)
+        //{
+        //    var user = await _userService.GetUserByIdWithPlayListsAsync(id);
+        //    return Ok(user);
+        //}
 
 
     }

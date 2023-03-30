@@ -1,4 +1,6 @@
 ﻿using MelodiusDataTrasnfer.DTOS;
+using MelodiusDataTrasnfer.Request;
+using MelodiusDataTrasnfer.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +13,10 @@ namespace MelodiusServices.Interface
     {
         Task<List<SongDto>> GetAllSongsAsync();
         Task<SongDto> GetSongByIdAsync(int id);
-        Task<bool> CreateSongAsync(SongDto song);
-        Task<bool> UpdateSongAsync(SongDto song);
-        Task<bool> DeleteSongAsync(int id);
+        Task<int> CreateSongAsync(SongDto song);
+        Task<SongDto> UpdateSongAsync(SongDto song);
+        Task<int> DeleteSongAsync(int id);
+
+        public Task<CompleteSongResponse> AddCompleteSong(CompleteSongRequest song);
     }
 }

@@ -19,19 +19,58 @@ namespace MelodiusDataAccess.Repository.Base
             _context = context;
             _dbSet = _context.Set<TEntity>();
         }
-        public async Task<bool> CreateAsync(TEntity entity)
+        //public async Task<bool> CreateAsync(TEntity entity)
+        //{
+        //    await _dbSet.AddAsync(entity);
+        //    var created = await _context.SaveChangesAsync();
+        //    return created > 0;
+        //}
+
+        //public Task<bool> DeleteAsync(int id)
+        //{
+        //    var entity = _dbSet.Find(id);
+        //    _dbSet.Remove(entity);
+        //    var deleted = _context.SaveChanges();
+        //    return Task.FromResult(deleted > 0);
+        //}
+
+        //public async Task<List<TEntity>> GetAllAsync()
+        //{
+        //    return await _dbSet.ToListAsync();
+        //}
+
+        //public async Task<TEntity> GetByIdAsync(int id)
+        //{
+        //    return await _dbSet.FindAsync(id);
+        //}
+
+        //public Task<bool> UpdateAsync(TEntity entity)
+        //{
+        //    _dbSet.Update(entity);
+        //    var updated = _context.SaveChanges();
+        //    return Task.FromResult(updated > 0);
+
+        //}
+
+        public async Task<TEntity> CreateAsync(TEntity entity)
         {
-            await _dbSet.AddAsync(entity);
-            var created = await _context.SaveChangesAsync();
-            return created > 0;
+            var createdEntity = await _dbSet.AddAsync(entity);
+            var newEntity = createdEntity.Entity;
+
+            await _context.SaveChangesAsync();
+
+            return newEntity;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<TEntity> DeleteAsync(int id)
         {
-            var entity = _dbSet.Find(id);
-            _dbSet.Remove(entity);
-            var deleted = _context.SaveChanges();
-            return Task.FromResult(deleted > 0);
+            var entityToDelete = await _dbSet.FindAsync(id);
+
+            if (entityToDelete == null)
+                throw new Exception("Entity not found");
+
+            _dbSet.Remove(entityToDelete);
+            return entityToDelete;
         }
 
         public async Task<List<TEntity>> GetAllAsync()
@@ -39,17 +78,19 @@ namespace MelodiusDataAccess.Repository.Base
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public Task<TEntity> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            var test = _dbSet.Where(x => x.Id == id);
+            return _dbSet.Where(x => x.Id == id).FirstAsync();
         }
 
-        public Task<bool> UpdateAsync(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             _dbSet.Update(entity);
-            var updated = _context.SaveChanges();
-            return Task.FromResult(updated > 0);
-
+            await _context.SaveChangesAsync();
+            return entity;
         }
+
+
     }
 }

@@ -19,8 +19,7 @@ namespace MelodiusDataTrasnfer.Mappers
                 DateOfCreation = playList.DateOfCreation,
                 Description = playList.Description,
                 IsPrivate = playList.IsPrivate,
-                TotalLength = playList.TotalLength,
-                User = UserMapper.MapUserToUserDto(playList.User)
+                TotalLength = playList.TotalLength
             };
         }
 
@@ -33,8 +32,7 @@ namespace MelodiusDataTrasnfer.Mappers
                 DateOfCreation = playListDto.DateOfCreation,
                 Description = playListDto.Description,
                 IsPrivate = playListDto.IsPrivate,
-                TotalLength = playListDto.TotalLength,
-                User = UserMapper.MapUserDtoToUser(playListDto.User)
+                TotalLength = playListDto.TotalLength
             };
         }
 

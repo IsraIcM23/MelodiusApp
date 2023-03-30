@@ -20,15 +20,18 @@ namespace MelodiusServices.Services
             _albumRepository = albumRepository;
         }
 
-        public async Task<bool> CreateAlbumAsync(AlbumDto album)
+
+        public async Task<int> CreateAlbumAsync(AlbumDto album)
         {
             Album _album = AlbumMapper.MapAlbumDtoToAlbum(album);
-            return await _albumRepository.CreateAsync(_album);
+            var newAlbum = await _albumRepository.CreateAsync(_album);
+            return newAlbum.Id;
         }
 
-        public async Task<bool> DeleteAlbumAsync(int id)
+        public async Task<int> DeleteAlbumAsync(int id)
         {
-            return await _albumRepository.DeleteAsync(id);
+            var deteledAlbum = await _albumRepository.DeleteAsync(id);
+            return deteledAlbum.Id;
         }
 
         public async Task<AlbumDto> GetAlbumByIdAsync(int id)
@@ -43,10 +46,11 @@ namespace MelodiusServices.Services
             return AlbumMapper.MapAlbumsToAlbumsDtos(albums);
         }
 
-        public async Task<bool> UpdateAlbumAsync(AlbumDto album)
+        public async Task<AlbumDto> UpdateAlbumAsync(AlbumDto albumDto)
         {
-            Album _album = AlbumMapper.MapAlbumDtoToAlbum(album);
-            return await _albumRepository.UpdateAsync(_album);
+            var albumModel = AlbumMapper.MapAlbumDtoToAlbum(albumDto);
+            var album = await _albumRepository.UpdateAsync(albumModel);
+            return AlbumMapper.MapAlbumToAlbumDto(album);
         }
     }
 }

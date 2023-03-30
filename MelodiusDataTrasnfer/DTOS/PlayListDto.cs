@@ -14,6 +14,6 @@ namespace MelodiusDataTrasnfer.DTOS
         public string? Description { get; set; }
         public bool IsPrivate { get; set; }
         public int? TotalLength { get; set; }
-        public UserDto User { get; set; }
+        public int UserId { get; set; }
     }
 }

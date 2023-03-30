@@ -22,12 +22,17 @@ builder.Services.AddDbContext<MelodiusContext>(opt =>
 //builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
+builder.Services.AddScoped<IPlayListService, PlayListService>();
+builder.Services.AddScoped<IPlayListRepository, PlayListRepository>();
+builder.Services.AddScoped<IPlayListSongRepository, PlayListSongRepository>();
 builder.Services.AddScoped<ISongService, SongService>();
 builder.Services.AddScoped<ISongRepository, SongRepository>();
-
 builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
+
+// 
+builder.Services.AddScoped<IAlbumSongRepository, AlbumSongRepository>();
+//
 
 builder.Services.AddCors(opt =>
 {

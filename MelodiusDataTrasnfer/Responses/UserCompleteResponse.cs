@@ -1,4 +1,5 @@
 ﻿using BooksModels;
+using MelodiusDataTrasnfer.DTOS;
 using MelodiusModels;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,6 @@ namespace MelodiusDataTrasnfer.Responses
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
-        public ICollection<PlayList>? playLists { get; set; }
+        public ICollection<PlayListDto>? playLists { get; set; }
     }
 }

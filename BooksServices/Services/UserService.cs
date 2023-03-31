@@ -3,6 +3,7 @@ using MelodiusDataAccess.Repository.Interfaces;
 using MelodiusDataTrasnfer.DTOS;
 using MelodiusDataTrasnfer.Mappers;
 using MelodiusDataTrasnfer.Responses;
+using MelodiusModels;
 using MelodiusServices.Interface;
 using System;
 using System.Collections.Generic;
@@ -52,28 +53,34 @@ namespace MelodiusServices.Services
             return  await _userRepository.UpdateAsync(_user);
         }
 
-        //public async Task<UserCompleteResponse> GetUserByIdWithPlayListsAsync(int id)
-        //{
-        //    var user = await _userRepository.GetByIdAsync(id);
-        //    var playLists = await _layListRepository.GetAllAsync();
+        public async Task<UserCompleteResponse> GetUserByIdWithPlayListsAsync(int id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+            var playLists = await _layListRepository.GetAllAsync();
 
-        //    foreach (var playList in playLists)
-        //    {
-        //        if (playList.User.Id == id)
-        //        {
-        //            user.playLists.Add(playList);
-        //        }
-        //    }
+            var userDto = UserMapper.MapUserToUserDto(user);
+            var playListDtos = PlayListMapper.MapPlayListsToPlayListDtos(playLists);
 
-        //    UserCompleteResponse response = new UserCompleteResponse();
-        //    response.Id = user.Id;
-        //    response.Name = user.Name;
-        //    response.Password = user.Password;
-        //    response.Email = user.Email;
-        //    response.playLists = user.playLists;
+            
+            List< PlayListDto > lists = new List< PlayListDto >();
 
-        //    return response;
-        //}
+            foreach (var playList in playListDtos)
+            {
+                if (playList.UserId == id)
+                {
+                    lists.Add(playList);
+                }
+            }
+
+            UserCompleteResponse response = new UserCompleteResponse();
+            response.Id = userDto.Id;
+            response.Name = userDto.Name;
+            response.Password = userDto.Password;
+            response.Email = userDto.Email;
+            response.playLists = lists;
+
+            return response;
+        }
 
 
     }

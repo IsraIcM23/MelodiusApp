@@ -8,6 +8,7 @@ using MelodiusDataTrasnfer.Responses;
 using MelodiusModels;
 using MelodiusServices.Interface;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,13 +22,20 @@ namespace MelodiusServices.Services
     {
         private readonly ISongRepository _songRepository;
         private readonly IAlbumRepository _albumRepository;
+        private readonly IPlayListRepository _playListRepository;
+
         private readonly IAlbumSongRepository _albumSongRepository;
+        private readonly IPlayListSongRepository _playListSongRepository;
 
 
-        public SongService(ISongRepository songRepository, IAlbumRepository albumRepository)
+        public SongService(ISongRepository songRepository, IAlbumRepository albumRepository, IPlayListRepository playListRepository ,IAlbumSongRepository albumSongRepository, IPlayListSongRepository playListSongRepository)
         {
             _songRepository = songRepository;
             _albumRepository = albumRepository;
+            _albumSongRepository = albumSongRepository;
+
+            _playListSongRepository = playListSongRepository;
+            _playListRepository = playListRepository;
         }
 
         public async Task<int> CreateSongAsync(SongDto song)
@@ -67,6 +75,8 @@ namespace MelodiusServices.Services
             SongDto songDto = completeSong.Song;
             Song song = SongMapper.MapSongDtoToSong(songDto);
             Song newSong = await _songRepository.CreateAsync(song);
+            List<int> albumSongs = new List<int>();
+            List<int> playListSongs = new List<int>();
 
 
             foreach (var item in completeSong.AlbumIds)
@@ -74,18 +84,39 @@ namespace MelodiusServices.Services
                 var album = await _albumRepository.GetByIdAsync(item);
                 AlbumSong albumSong = new AlbumSong();
                 albumSong.AlbumID   = album.Id;
-                albumSong.SongID    = song.Id;
-
+                albumSong.SongID    = newSong.Id;
                 await _albumSongRepository.CreateAsync(albumSong);
+
+                var albums = await _albumSongRepository.GetByIdAsync(albumSong.Id);
+                albumSongs.Add(albums.AlbumID);
             }
+
+            foreach (var item in completeSong.PlayListIds)
+            {
+                var playList = await _playListRepository.GetByIdAsync(item);
+                PlayListSong playListSong = new PlayListSong();
+                playListSong.PlaylistID = playList.Id;
+                playListSong.SongID = newSong.Id;
+                await _playListSongRepository.CreateAsync(playListSong);
+
+                var playlists = await _playListSongRepository.GetByIdAsync(playListSong.Id);
+                playListSongs.Add(playlists.PlaylistID);
+            }
+
+
+
 
             //-- prepares the response
             CompleteSongResponse response = new CompleteSongResponse();
-            response.SongId     = song.Id;
-            response.Title      = song.Title;
+            response.SongId     = newSong.Id;
+            response.Title      = newSong.Title;
+            response.albumIds   = albumSongs;
+            response.PlayListIds = playListSongs;
 
             return response;
         }
+
+
     }
 }
 

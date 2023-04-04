@@ -11,5 +11,6 @@ namespace MelodiusDataTrasnfer.Request
     {
         public SongDto Song { get; set; }
         public List<int> AlbumIds { get; set; }
+        public List<int> PlayListIds { get; set; }
     }
 }

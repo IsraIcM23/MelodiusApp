@@ -1,4 +1,5 @@
-﻿using MelodiusModels;
+﻿using MelodiusDataTrasnfer.DTOS;
+using MelodiusModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace MelodiusDataTrasnfer.Responses
     {
         public int SongId { get; set; }
         public string Title { get; set; }
-        public ICollection<AlbumSong>? albumSongs { get; set; }
+        public ICollection<int>? albumIds { get; set; }
+        public ICollection<int>? PlayListIds { get; set; }
 
     }
 }

@@ -59,12 +59,6 @@ namespace MelodiusServices.Services
             return PlayListMapper.MapPlayListToPlayListDto(playList);
         }
 
-        public async Task<int> DeleteUserAsync(int id)
-        {
-            var deletedUser = await _userRepository.DeleteAsync(id);
-            return deletedUser.Id;
-        }
-
         public async Task<int> DeletePlayListAsync(int id)
         {
             var deletePlayList = await _playListRepository.DeleteAsync(id);

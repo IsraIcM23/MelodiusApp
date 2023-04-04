@@ -19,7 +19,8 @@ namespace MelodiusDataTrasnfer.Mappers
                 DateOfCreation = playList.DateOfCreation,
                 Description = playList.Description,
                 IsPrivate = playList.IsPrivate,
-                TotalLength = playList.TotalLength
+                TotalLength = playList.TotalLength,
+                UserId = playList.UserId
             };
         }
 

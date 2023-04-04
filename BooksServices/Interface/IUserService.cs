@@ -16,5 +16,7 @@ namespace MelodiusServices.Interface
         Task<int> CreateUserAsync(UserDto user);
         Task<UserDto> UpdateUserAsync(UserDto user);
         Task<int> DeleteUserAsync(int id);
+        Task<UserCompleteResponse> GetUserByIdWithPlayListsAsync(int id);
+
     }
 }

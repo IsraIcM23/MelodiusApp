@@ -76,6 +76,7 @@ namespace MelodiusDataAccess.Repository.Base
         public async Task<List<TEntity>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
+           
         }
 
         public Task<TEntity> GetByIdAsync(int id)

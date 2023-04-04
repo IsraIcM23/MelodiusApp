@@ -68,7 +68,7 @@ namespace MelodiusServices.Services
             var playListDtos = PlayListMapper.MapPlayListsToPlayListDtos(playLists);
 
             
-            List< PlayListDto > lists = new List< PlayListDto >();
+            List<PlayListDto> lists = new List<PlayListDto>();
 
             foreach (var playList in playListDtos)
             {
@@ -83,7 +83,7 @@ namespace MelodiusServices.Services
             response.Name = userDto.Name;
             response.Password = userDto.Password;
             response.Email = userDto.Email;
-            response.playLists = lists;
+            response.playLists = (ICollection<PlayListDto>?)lists;
 
             return response;
         }

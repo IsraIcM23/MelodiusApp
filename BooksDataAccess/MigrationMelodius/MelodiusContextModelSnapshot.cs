@@ -4,19 +4,16 @@ using BooksDataAccess.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BooksDataAccess.MigrationsMelodius
+namespace MelodiusDataAccess.MigrationMelodius
 {
     [DbContext(typeof(MelodiusContext))]
-    [Migration("20230322005341_InitialDB")]
-    partial class InitialDB
+    partial class MelodiusContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,36 +24,35 @@ namespace BooksDataAccess.MigrationsMelodius
 
             modelBuilder.Entity("BooksModels.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("MelodiusModels.Album", b =>
                 {
-                    b.Property<int>("AlbumID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AlbumID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -66,18 +62,18 @@ namespace BooksDataAccess.MigrationsMelodius
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AlbumID");
+                    b.HasKey("Id");
 
                     b.ToTable("Albums");
                 });
 
             modelBuilder.Entity("MelodiusModels.AlbumSong", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AlbumID")
                         .HasColumnType("int");
@@ -85,7 +81,7 @@ namespace BooksDataAccess.MigrationsMelodius
                     b.Property<int>("SongID")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("AlbumID");
 
@@ -96,11 +92,11 @@ namespace BooksDataAccess.MigrationsMelodius
 
             modelBuilder.Entity("MelodiusModels.Artist", b =>
                 {
-                    b.Property<int>("ArtistID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ArtistID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Biography")
                         .IsRequired()
@@ -110,18 +106,18 @@ namespace BooksDataAccess.MigrationsMelodius
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ArtistID");
+                    b.HasKey("Id");
 
                     b.ToTable("Artists");
                 });
 
             modelBuilder.Entity("MelodiusModels.ArtistSong", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ArtistID")
                         .HasColumnType("int");
@@ -129,7 +125,7 @@ namespace BooksDataAccess.MigrationsMelodius
                     b.Property<int>("SongID")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("ArtistID");
 
@@ -140,17 +136,16 @@ namespace BooksDataAccess.MigrationsMelodius
 
             modelBuilder.Entity("MelodiusModels.PlayList", b =>
                 {
-                    b.Property<int>("PlaylistID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlaylistID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateOfCreation")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPrivate")
@@ -160,13 +155,13 @@ namespace BooksDataAccess.MigrationsMelodius
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TotalLength")
+                    b.Property<int?>("TotalLength")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("PlaylistID");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -198,14 +193,15 @@ namespace BooksDataAccess.MigrationsMelodius
 
             modelBuilder.Entity("MelodiusModels.Song", b =>
                 {
-                    b.Property<int>("SongID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SongID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Genre")
-                        .HasColumnType("bit");
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Length")
                         .HasColumnType("int");
@@ -217,7 +213,7 @@ namespace BooksDataAccess.MigrationsMelodius
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SongID");
+                    b.HasKey("Id");
 
                     b.ToTable("Songs");
                 });

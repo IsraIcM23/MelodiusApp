@@ -30,6 +30,8 @@ builder.Services.AddScoped<ISongRepository, SongRepository>();
 builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
 
+// 
+builder.Services.AddScoped<IAlbumSongRepository, AlbumSongRepository>();
 //
 
 builder.Services.AddCors(opt =>

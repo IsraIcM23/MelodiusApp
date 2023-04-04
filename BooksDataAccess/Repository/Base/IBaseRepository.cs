@@ -11,8 +11,9 @@ namespace MelodiusDataAccess.Repository.Base
     {
         Task<TEntity> GetByIdAsync(int id);
         Task<List<TEntity>> GetAllAsync();
-        Task<bool> CreateAsync(TEntity entity);
-        Task<bool> UpdateAsync(TEntity entity);
-        Task<bool> DeleteAsync(int id);
+        Task<TEntity> CreateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
+        Task<TEntity> DeleteAsync(int id);
+
     }
 }

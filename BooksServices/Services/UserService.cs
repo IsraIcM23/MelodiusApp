@@ -1,4 +1,5 @@
 ﻿using BooksModels;
+using MelodiusDataAccess.Repository.Implementation;
 using MelodiusDataAccess.Repository.Interfaces;
 using MelodiusDataTrasnfer.DTOS;
 using MelodiusDataTrasnfer.Mappers;
@@ -24,15 +25,19 @@ namespace MelodiusServices.Services
             _layListRepository = playListRepository;
         }
 
-        public async Task<bool> CreateUserAsync(UserDto user)
+
+        public async Task<int> CreateUserAsync(UserDto user)
         {
             User _user = UserMapper.MapUserDtoToUser(user);
-            return await _userRepository.CreateAsync(_user);
+            var newUser = await _userRepository.CreateAsync(_user);
+            return newUser.Id;
         }
 
-        public async Task<bool> DeleteUserAsync(int id)
+
+        public async Task<int> DeleteUserAsync(int id)
         {
-            return await _userRepository.DeleteAsync(id);
+            var deletedUser = await _userRepository.DeleteAsync(id);
+            return deletedUser.Id;
         }
 
         public async Task<List<UserDto>> GetAllUsersAsync()
@@ -47,10 +52,11 @@ namespace MelodiusServices.Services
             return UserMapper.MapUserToUserDto(user);
         }
 
-        public async Task<bool> UpdateUserAsync(UserDto user)
+        public async Task<UserDto> UpdateUserAsync(UserDto userDto)
         {
-            User _user = UserMapper.MapUserDtoToUser(user);
-            return  await _userRepository.UpdateAsync(_user);
+            var userModel = UserMapper.MapUserDtoToUser(userDto);
+            var user = await _userRepository.UpdateAsync(userModel);
+            return UserMapper.MapUserToUserDto(user);
         }
 
         public async Task<UserCompleteResponse> GetUserByIdWithPlayListsAsync(int id)

@@ -1,6 +1,8 @@
-﻿using MelodiusDataAccess.Repository.Interfaces;
+﻿using BooksModels;
+using MelodiusDataAccess.Repository.Interfaces;
 using MelodiusDataTrasnfer.DTOS;
 using MelodiusDataTrasnfer.Mappers;
+using MelodiusModels;
 using MelodiusServices.Interface;
 using System;
 using System.Collections.Generic;
@@ -34,23 +36,39 @@ namespace MelodiusServices.Services
             var playList = await _playListRepository.GetByIdAsync(id);
             return PlayListMapper.MapPlayListToPlayListDto(playList);
         }
-        public async Task<bool> CreatePlayListAsync(PlayListDto playListDto)
+
+
+        public async Task<int> CreatePlayListAsync(PlayListDto playListDto)
         {
-            var playList = PlayListMapper.MapPlayListDtoToPlayList(playListDto);
-            var user = await _userRepository.GetByIdAsync(playListDto.UserId);
-            playList.User = user;
-            return await _playListRepository.CreateAsync(playList);
+            //var playList = PlayListMapper.MapPlayListDtoToPlayList(playListDto);
+            //var user = await _userRepository.GetByIdAsync(playListDto.UserId);
+            //playList.User = user;
+            //return await _playListRepository.CreateAsync(playList);
+
+
+            PlayList _playList = PlayListMapper.MapPlayListDtoToPlayList(playListDto);
+            var newPlayList = await _playListRepository.CreateAsync(_playList);
+            return newPlayList.Id;
+
         }
 
-        public async Task<bool> UpdatePlayListAsync(PlayListDto playListDto)
+        public async Task<PlayListDto> UpdatePlayListAsync(PlayListDto playListDto)
         {
-            var playList =  PlayListMapper.MapPlayListDtoToPlayList(playListDto);
-            return await _playListRepository.UpdateAsync(playList);
+            var playListModel = PlayListMapper.MapPlayListDtoToPlayList(playListDto);
+            var playList = await _playListRepository.UpdateAsync(playListModel);
+            return PlayListMapper.MapPlayListToPlayListDto(playList);
         }
 
-        public async Task<bool> DeletePlayListAsync(int id)
+        public async Task<int> DeleteUserAsync(int id)
         {
-            return await _playListRepository.DeleteAsync(id);
+            var deletedUser = await _userRepository.DeleteAsync(id);
+            return deletedUser.Id;
+        }
+
+        public async Task<int> DeletePlayListAsync(int id)
+        {
+            var deletePlayList = await _playListRepository.DeleteAsync(id);
+            return deletePlayList.Id;
         }
 
     }

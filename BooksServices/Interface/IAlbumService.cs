@@ -11,8 +11,8 @@ namespace MelodiusServices.Interface
     {
         Task<List<AlbumDto>> GetAllAlbumsAsync();
         Task<AlbumDto> GetAlbumByIdAsync(int id);
-        Task<bool> CreateAlbumAsync(AlbumDto album);
-        Task<bool> UpdateAlbumAsync(AlbumDto album);
-        Task<bool> DeleteAlbumAsync(int id);
+        Task<int> CreateAlbumAsync(AlbumDto album);
+        Task<AlbumDto> UpdateAlbumAsync(AlbumDto album);
+        Task<int> DeleteAlbumAsync(int id);
     }
 }

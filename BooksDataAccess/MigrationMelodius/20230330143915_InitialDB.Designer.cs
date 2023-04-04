@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MelodiusDataAccess.MigrationsMelodius
+namespace MelodiusDataAccess.MigrationMelodius
 {
     [DbContext(typeof(MelodiusContext))]
-    [Migration("20230328042258_segunda-migracion")]
-    partial class segundamigracion
+    [Migration("20230330143915_InitialDB")]
+    partial class InitialDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -202,8 +202,9 @@ namespace MelodiusDataAccess.MigrationsMelodius
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Genre")
-                        .HasColumnType("bit");
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Length")
                         .HasColumnType("int");

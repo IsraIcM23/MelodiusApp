@@ -40,13 +40,10 @@ namespace MelodiusServices.Services
 
         public async Task<int> CreatePlayListAsync(PlayListDto playListDto)
         {
-            //var playList = PlayListMapper.MapPlayListDtoToPlayList(playListDto);
-            //var user = await _userRepository.GetByIdAsync(playListDto.UserId);
-            //playList.User = user;
-            //return await _playListRepository.CreateAsync(playList);
-
 
             PlayList _playList = PlayListMapper.MapPlayListDtoToPlayList(playListDto);
+            var user = await _userRepository.GetByIdAsync(playListDto.UserId);
+            _playList.User = user;
             var newPlayList = await _playListRepository.CreateAsync(_playList);
             return newPlayList.Id;
 

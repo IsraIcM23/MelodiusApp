@@ -16,9 +16,9 @@ namespace MelodiusServices.Services
     {
         private readonly IArtistRepository _artistRepository;
 
-        public ArtistService()
+        public ArtistService (IArtistRepository artistRepository)
         {
-
+            _artistRepository = artistRepository;
         }
 
         public async Task<int> CreateArtistAsync(ArtistDto artistDto)
